@@ -28,7 +28,7 @@ export default {
       work: "",
       days: null,
     }
-    // this.$store.state.task
+
   },
   data () {
     return {

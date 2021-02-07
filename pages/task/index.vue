@@ -78,6 +78,7 @@ export default {
       icon: "",
       days: null,
     }
+    
   },
   data() {
     return {

@@ -21,6 +21,12 @@ export const state = () => ({
   }
 });
 
+export const getters = {
+    getTask(state) {
+        return state.task
+    }
+}
+
 export const mutations = {
   doit(state) {
     // var n = Math.floor(Math.random() * 10);
