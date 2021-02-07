@@ -1,28 +1,32 @@
-export const state = () => ({
-    task: {
-        name: "",
-        status: null,
-        work: "",
-        days: null,
-      },
-})
-    
+import createPersistedState from "vuex-persistedstate";
 
+export const state = () => ({
+  // task: {
+  //     name: "",
+  //     status: null,
+  //     work: "",
+  //     days: null,
+  //   },
+  counter: 0
+});
 
 export const mutations = {
-    incStatus: function (state) {
-        if (1 <= state.status && state.status <= 2) {
-            task.status++;
-          }
-    },
-    count: function(state) {
-                state.counter++;
-            },
-    reset: function(state) {
-                state.counter = 0
-            },
-}
+  // incStatus: function (state) {
+  //     if (1 <= state.status && state.status <= 2) {
+  //         task.status++;
+  //       }
+  // },
+  count: function(state) {
+    // state.counter++;
+    var n = Math.floor(Math.random() * 10);
+    state.counter += n;
+  },
+  reset: function(state) {
+    state.counter = 0;
+  }
+};
 
+export const plugins = [createPersistedState()];
 // export const state = () => {
 //     task: {}
 //     status: Number
@@ -35,8 +39,6 @@ export const mutations = {
 //           }
 //     }
 // }
-
-
 
 // import Vuex from 'vuex'
 
@@ -100,7 +102,7 @@ export const mutations = {
 //             state.status--;
 //           }
 //     },
-//     
+//
 //     removeTask(state, { task }) {
 //         state.tasks.splice(state.list.indexOf(task), 1)
 //     }
@@ -123,8 +125,6 @@ export const mutations = {
 //         commit('setStatus' -1)
 //     }
 // }
-
-
 
 // export const state = () => ({
 //     addStatus: 1

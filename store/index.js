@@ -7,28 +7,43 @@
 // import taskinfo from '@/store/modules/taskinfo.js'
 // import todos from '@/store/modules/todos.js'
 
-import Vuex from 'vuex'
-import createPersistedState from 'vuex-persistedstate'
+import Vuex from "vuex";
+import createPersistedState from "vuex-persistedstate";
 
 export const state = () => ({
-    message: 'number',
-    counter: 0,
-})
+  message: "number",
+  counter: 0,
+  task: {
+    name: "",
+    status: null,
+    work: "",
+    days: null
+  }
+});
 
 export const mutations = {
-    doit(state) {
-        var n = Math.floor(Math.random() * 10);
-        state.counter += n;
-        state.message = 'add' + n + '.';
-    },
-    reset(state) {
-        state.counter = 0;
-        state.message = 'reset';
+  doit(state) {
+    // var n = Math.floor(Math.random() * 10);
+    var n = 1;
+    state.counter += n;
+    state.message = "add" + n + ".";
+  },
+  reset(state) {
+    state.counter = 0;
+    state.message = "reset";
+  },
+  incStatus: function(state) {
+    if (1 <= state.task.status && state.task.status <= 2) {
+      state.task.status++;
     }
-}
-export const plugins = [
-    createPersistedState(),
-]
+  },
+  decStatus: function(state) {
+    if (2 <= state.task.status && state.task.status <= 3) {
+      state.task.status--;
+    }
+  }
+};
+export const plugins = [createPersistedState()];
 // const createStore = () => {
 //     return new Vuex.Store({
 //         state: function() {
@@ -43,28 +58,27 @@ export const plugins = [
 //                 //   }
 //             }
 //         },
-        // mutations: {
-        //     count: function(state) {
-        //         state.counter++;
-        //     },
-        //     reset: function(state) {
-        //         state.counter = 0
-        //     },
-        //     // incStatus: function (state) {
-        //     //     if (1 <= state.status && state.status <= 2) {
-        //     //       state.status++;
-        //     //     }
-        //     // },
+// mutations: {
+//     count: function(state) {
+//         state.counter++;
+//     },
+//     reset: function(state) {
+//         state.counter = 0
+//     },
+//     // incStatus: function (state) {
+//     //     if (1 <= state.status && state.status <= 2) {
+//     //       state.status++;
+//     //     }
+//     // },
 
-        // },
-        // plugins: [
-        //     createPersistedState({
-        //         storage: window.sessionStorage
-        //     }),
-        // ],
-  
+// },
+// plugins: [
+//     createPersistedState({
+//         storage: window.sessionStorage
+//     }),
+// ],
+
 // export default createStore
-
 
 // Vue.use(Vuex)
 // const store = new Vuex.store({
@@ -74,19 +88,19 @@ export const plugins = [
 //     plugins: [createPersistedState({storage: window.sessionStorage})]
 // })
 
-    // const store = createStore({
-    //     modules: {
-    //         taskinfo,
-    //     },
-    //     plugins: [
-    //         createPersistedState({
-    //             paths: [
-    //                 'taskinfo'
-    //             ]
-    //         })
-    //     ],
-    //     storage: window.sessionStorage
-    // })
+// const store = createStore({
+//     modules: {
+//         taskinfo,
+//     },
+//     plugins: [
+//         createPersistedState({
+//             paths: [
+//                 'taskinfo'
+//             ]
+//         })
+//     ],
+//     storage: window.sessionStorage
+// })
 // const store = function () {
 
 //     return new Vuex.Store({

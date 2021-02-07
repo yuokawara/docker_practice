@@ -53,8 +53,8 @@
           <p>{{ $store.state.modules.taskinfo.count }}</p>
         </div> -->
         <div class="counttest">
-          <button @click="$store.commit('taskinfo/count')">test</button>
-          <button @click="$store.commit('taskinfo/reset')">reset</button>
+          <button @click="$store.commit('doit')">test</button>
+          <button @click="$store.commit('reset')">reset</button>
           <a>
             click: {{ $store.state.counter}}
           </a>

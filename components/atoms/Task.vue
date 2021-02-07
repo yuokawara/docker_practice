@@ -28,6 +28,7 @@ export default {
       work: "",
       days: null,
     }
+    // this.$store.state.task
   },
   data () {
     return {
@@ -40,9 +41,9 @@ export default {
     }
   },
   computed: {
-    tasks: function () {
-      return this.$state.store.taskinfo.task
-    }
+    // tasks: function () {
+    //   return this.$state.store.taskinfo.task
+    // }
   },
   // computed: {
   //   taskinfo () {
@@ -59,19 +60,19 @@ export default {
     //     decStatus: 'tasks/decStatus'
     //   }),
 
-      incStatus: function () {
-        this.$store.commit('taskinfo/incStatus')
-      },
-      // incStatus: function (task) {
-      // if (1 <= task.status && task.status <= 2) {
-      //   task.status++;
-      // }
+      // incStatus: function () {
+      //   this.$store.commit('taskinfo/incStatus')
       // },
-      decStatus: function (task) {
-      if (2 <= task.status && task.status <= 3) {
-        task.status--;
+      incStatus: function (task) {
+      if (1 <= task.status && task.status <= 2) {
+        task.status++;
       }
       },
+      // decStatus: function (task) {
+      // if (2 <= task.status && task.status <= 3) {
+      //   task.status--;
+      // }
+      // },
     //   addTask: function addTask() {
     //   this.tasks.push({
     //     name: this.newTaskName,
