@@ -68,11 +68,11 @@ export default {
         task.status++;
       }
       },
-      // decStatus: function (task) {
-      // if (2 <= task.status && task.status <= 3) {
-      //   task.status--;
-      // }
-      // },
+      decStatus: function (task) {
+      if (2 <= task.status && task.status <= 3) {
+        task.status--;
+      }
+      },
     //   addTask: function addTask() {
     //   this.tasks.push({
     //     name: this.newTaskName,
