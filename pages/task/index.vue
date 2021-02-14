@@ -15,7 +15,7 @@
             <span class="tag">Not compatible</span>
             <span class="tag">{{ tasks.length }}</span>
           </div>
-            <task
+          <task
             v-bind:task="task"
             v-for="task in taskOpen"
             v-bind:key="task.name"
@@ -26,7 +26,7 @@
             <span class="tag">progress</span>
             <span class="tag"></span>
           </div>
-            <!-- <task
+          <!-- <task
             v-bind:task="$store.state.task"
             v-for="task in taskDoing"
             v-bind:key="task.name"
@@ -42,7 +42,7 @@
             <span class="tag">done</span>
             <span class="tag is-dark"></span>
           </div>
-            <task
+          <task
             v-bind:task="task"
             v-for="task in taskClosed"
             v-bind:key="task.name"
@@ -55,21 +55,24 @@
         <div class="counttest">
           <button @click="$store.commit('doit')">test</button>
           <button @click="$store.commit('reset')">reset</button>
-          <a>
-            click: {{ $store.state.counter}}
-          </a>
+          <a> click: {{ $store.state.counter }} </a>
         </div>
       </div>
       <div class="clock">
-          <span class="clock__hour"></span>
-          <span class="clock__min"></span>
-          <span class="clock__sec"></span>
-          <span class="clock__12">12</span>
-          <span class="clock__3">3</span>
-          <span class="clock__6">6</span>
-          <span class="clock__9">9</span>
-        </div>
+        <span class="clock__hour"></span>
+        <span class="clock__min"></span>
+        <span class="clock__sec"></span>
+        <span class="clock__12">12</span>
+        <span class="clock__3">3</span>
+        <span class="clock__6">6</span>
+        <span class="clock__9">9</span>
+      </div>
     </div>
+    <!-- <div id="degital">
+      <p class="date">{{ date }}</p>
+      <p class="time">{{ time }}</p> 
+      <p class="text">Degital</p>
+    </div> -->
   </section>
 </template>
 <script>
@@ -78,16 +81,15 @@ import Task from "@/components/atoms/Task.vue";
 
 export default {
   components: {
-    Task,
+    Task
   },
   props: {
     task: {
       name: "",
       status: null,
       icon: "",
-      days: null,
+      days: null
     }
-    
   },
   data() {
     return {
@@ -95,25 +97,27 @@ export default {
         { name: "task 1", status: 1, work: "normal", days: 3 },
         { name: "task 2", status: 1, work: "caution", days: 2 },
         { name: "task 3", status: 2, work: "caution", days: 1 },
-        { name: "task 4", status: 3, work: "danger", days: 1 },
+        { name: "task 4", status: 3, work: "danger", days: 1 }
       ],
-      
+
       newTaskName: "",
       newWork: null,
       newDays: 0,
+      time: "",
+      date: ""
     };
   },
 
-  mounted () {
+  mounted() {
     setInterval(() => {
       const now = new Date();
       const h = now.getHours();
       const m = now.getMinutes();
       const s = now.getSeconds();
 
-      const degH = h * (360 /12) + m * (360 / 12 / 60);
-      const degM = m * (360 /60);
-      const degS = s * (360 /60);
+      const degH = h * (360 / 12) + m * (360 / 12 / 60);
+      const degM = m * (360 / 60);
+      const degS = s * (360 / 60);
 
       const elementH = document.querySelector(".clock__hour");
       const elementM = document.querySelector(".clock__min");
@@ -123,18 +127,40 @@ export default {
       elementM.style.transform = `rotate(${degM}deg)`;
       elementS.style.transform = `rotate(${degS}deg)`;
     }, 10);
+
+    // var week = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
+    // var timerID = setInterval(updateTime, 1000);
+    // updateTime();
+    // function updateTime() {
+    //   var cd = new Date();
+
+    //   var time = zeroPadding(cd.getHours(), 2) + ':' +
+    //   zeroPadding(cd.getMinutes(), 2) + ':' +
+    //   zeroPadding(cd.getSeconds(), 2);
+
+    //   var date = zeroPadding(cd.getFullYear(), 4) + '-' +
+    //   zeroPadding(cd.getDate(), 2) + '-' +
+    //   week[cd.getDay()];
+    // }
+    // function zeroPadding(num, digit) {
+    //   var zero = '';
+    //   for(var i = 0; i < digit; i++) {
+    //     zero += '0';
+    //   }
+    //   return (zero + num).slice(-digit);
+    // }
   },
 
   computed: {
-    taskOpen: function () {
+    taskOpen: function() {
       return this.open(this.tasks);
     },
-    taskDoing: function () {
+    taskDoing: function() {
       return this.doing(this.tasks);
     },
-    taskClosed: function () {
+    taskClosed: function() {
       return this.closed(this.tasks);
-    },
+    }
     // taskinfo () {
     //   return this.$store.state.taskinfo.tasks
     // }
@@ -147,7 +173,7 @@ export default {
         name: this.newTaskName,
         status: 1,
         icon: this.newWork,
-        days: this.newDays,
+        days: this.newDays
       });
     },
     // doAct() {
@@ -157,28 +183,26 @@ export default {
     //   this.$store.commit('taskinfo/inc')
     // },
 
-
     open(tasks) {
-      return tasks.filter(function (task) {
+      return tasks.filter(function(task) {
         return task.status === 1;
       });
     },
     doing(tasks) {
-      return tasks.filter(function (task) {
+      return tasks.filter(function(task) {
         return task.status === 2;
       });
     },
     closed(tasks) {
-      return tasks.filter(function (task) {
+      return tasks.filter(function(task) {
         return task.status === 3;
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped>
 .container {
-  
   height: 100%;
   width: 100%;
   background-color: chartreuse;
@@ -291,5 +315,36 @@ export default {
   left: 10px;
   transform: translateY(-50%);
   font-size: 18px;
+}
+
+.p {
+  margin: 0;
+  padding: 0;
+}
+
+#degital {
+  width: 400px;
+  height: 400px;
+  background-color: silver;
+  font-family: "Share Tech Mono", monospace;
+  color: #ffffff;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #daf6ff;
+  text-shadow: 0 0 20px rgba(10, 175, 230, 1), 0 0 20px rgba(10, 175, 230, 0);
+}
+
+.time {
+  letter-spacing: 0.05em;
+  font-size: 80px;
+  padding: 5px 0;
+}
+
+.date {
+  letter-spacing: 0.1rem;
+  font-size: 24px;
 }
 </style>
