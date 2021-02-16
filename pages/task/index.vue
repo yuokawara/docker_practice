@@ -58,7 +58,7 @@
           <a> click: {{ $store.state.counter }} </a>
         </div>
       </div>
-      <div class="clock">
+      <!-- <div class="clock">
         <span class="clock__hour"></span>
         <span class="clock__min"></span>
         <span class="clock__sec"></span>
@@ -66,6 +66,25 @@
         <span class="clock__3">3</span>
         <span class="clock__6">6</span>
         <span class="clock__9">9</span>
+      </div> -->
+      <div class="analog">
+        <div class="analogdial">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <div class="hour meter"></div>
+        <div class="min meter"></div>
+        <div class="sec meter"></div>
       </div>
     </div>
     <!-- <div id="degital">
@@ -109,24 +128,39 @@ export default {
   },
 
   mounted() {
+    // setInterval(() => {
+    //   const now = new Date();
+    //   const h = now.getHours();
+    //   const m = now.getMinutes();
+    //   const s = now.getSeconds();
+
+    //   const degH = h * (360 / 12) + m * (360 / 12 / 60);
+    //   const degM = m * (360 / 60);
+    //   const degS = s * (360 / 60);
+
+    //   const elementH = document.querySelector(".clock__hour");
+    //   const elementM = document.querySelector(".clock__min");
+    //   const elementS = document.querySelector(".clock__sec");
+
+    //   elementH.style.transform = `rotate(${degH}deg)`;
+    //   elementM.style.transform = `rotate(${degM}deg)`;
+    //   elementS.style.transform = `rotate(${degS}deg)`;
+    // }, 10);
+
+    const hour = document.querySelector(".hour.meter");
+    const min = document.querySelector(".min.meter");
+    const sec = document.querySelector(".sec.meter");
+
     setInterval(() => {
-      const now = new Date();
-      const h = now.getHours();
-      const m = now.getMinutes();
-      const s = now.getSeconds();
+      const date = new Date();
+      const s = (360 / 60) * date.getSeconds();
+      const m = (360 / 60) * date.getMinutes() + s / 60;
+      const h = (360 / 24) * date.getHours() + m / 24;
 
-      const degH = h * (360 / 12) + m * (360 / 12 / 60);
-      const degM = m * (360 / 60);
-      const degS = s * (360 / 60);
-
-      const elementH = document.querySelector(".clock__hour");
-      const elementM = document.querySelector(".clock__min");
-      const elementS = document.querySelector(".clock__sec");
-
-      elementH.style.transform = `rotate(${degH}deg)`;
-      elementM.style.transform = `rotate(${degM}deg)`;
-      elementS.style.transform = `rotate(${degS}deg)`;
-    }, 10);
+      sec.style.transform = `rotate(${s}deg)`;
+      min.style.transform = `rotate(${m}deg)`;
+      hour.style.transform = `rotate(${h}deg)`;
+    }, 1000);
 
     // var week = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
     // var timerID = setInterval(updateTime, 1000);
@@ -247,7 +281,7 @@ export default {
   margin: 2px;
 }
 
-.clock {
+/* .clock {
   position: relative;
   width: 400px;
   height: 400px;
@@ -315,14 +349,113 @@ export default {
   left: 10px;
   transform: translateY(-50%);
   font-size: 18px;
+} */
+
+.analog {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  border: 1px solid #333;
+  border-radius: 50%;
 }
 
-.p {
+.analog::after {
+  content: "";
+  position: absolute;
+  top: calc(50% - 8px);
+  left: calc(50% - 8px);
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  background-color: royalblue;
+}
+
+.analogdial {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* background: seagreen; */
+}
+
+.analogdial > div {
+  /* background-color: tomato; */
+  position: absolute;
+  top: 0;
+  left: calc(50% - 3px);
+  width: 5px;
+  height: 50%;
+  transform-origin: bottom;
+}
+.analogdial > div::after {
+  position: absolute;
+  top: 0;
+  content: "";
+  width: 5px;
+  height: 15px;
+  background-color: tomato;
+}
+.analogdial div:nth-child(1) {
+  transform: rotate(30deg);
+}
+.analogdial div:nth-child(2) {
+  transform: rotate(60deg);
+}
+.analogdial div:nth-child(3) {
+  transform: rotate(90deg);
+}
+.analogdial div:nth-child(4) {
+  transform: rotate(120deg);
+}
+.analogdial div:nth-child(5) {
+  transform: rotate(150deg);
+}
+.analogdial div:nth-child(6) {
+  transform: rotate(180deg);
+}
+.analogdial div:nth-child(7) {
+  transform: rotate(210deg);
+}
+.analogdial div:nth-child(8) {
+  transform: rotate(240deg);
+}
+.analogdial div:nth-child(9) {
+  transform: rotate(270deg);
+}
+.analogdial div:nth-child(10) {
+  transform: rotate(300deg);
+}
+.analogdial div:nth-child(11) {
+  transform: rotate(330deg);
+}
+.analogdial div:nth-child(12) {
+  transform: rotate(360deg);
+}
+
+.meter {
+  background-color: plum;
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: 50% 100%;
+}
+.hour.meter {
+  width: 5px;
+  height: 150px;
+}
+.min.meter {
+  width: 3px;
+  height: 180px;
+}
+.sec.meter {
+  width: 2px;
+  height: 170px;
+}
+/* .p {
   margin: 0;
   padding: 0;
-}
+} */
 
-#degital {
+/* #degital {
   width: 400px;
   height: 400px;
   background-color: silver;
@@ -335,16 +468,16 @@ export default {
   transform: translate(-50%, -50%);
   color: #daf6ff;
   text-shadow: 0 0 20px rgba(10, 175, 230, 1), 0 0 20px rgba(10, 175, 230, 0);
-}
+} */
 
-.time {
+/* .time {
   letter-spacing: 0.05em;
   font-size: 80px;
   padding: 5px 0;
-}
+} */
 
-.date {
+/* .date {
   letter-spacing: 0.1rem;
   font-size: 24px;
-}
+} */
 </style>
