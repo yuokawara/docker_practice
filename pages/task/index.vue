@@ -58,6 +58,12 @@
           <a> click: {{ $store.state.counter }} </a>
         </div>
       </div>
+      <canvas id="canvas" width="300" height="300"></canvas>
+      <div id="frame">
+        <span id="frame_date"></span>
+        <span id="frame_time"></span>
+      </div>
+      <!-- <div id="analogtimer"></div> -->
       <!-- <div class="clock">
         <span class="clock__hour"></span>
         <span class="clock__min"></span>
@@ -67,7 +73,7 @@
         <span class="clock__6">6</span>
         <span class="clock__9">9</span>
       </div> -->
-      <div class="analog">
+      <!-- <div class="analog">
         <div class="analogdial">
           <div></div>
           <div></div>
@@ -85,7 +91,7 @@
         <div class="hour meter"></div>
         <div class="min meter"></div>
         <div class="sec meter"></div>
-      </div>
+      </div> -->
     </div>
     <!-- <div id="degital">
       <p class="date">{{ date }}</p>
@@ -96,6 +102,7 @@
 </template>
 <script>
 import Task from "@/components/atoms/Task.vue";
+import func from '../../vue-temp/vue-editor-bridge';
 // import { mapMutations, } from 'vuex'
 
 export default {
@@ -128,6 +135,53 @@ export default {
   },
 
   mounted() {
+    var ctx, h, m, s, width, height;
+
+    function getOjg(id) {
+      return document.getElementsById(id);
+    }
+
+    function clock () {
+      ctx = getOjg("canvas").getContext("2d");
+      setInterval(tick, 1000);
+    }
+
+    function tick() {
+      var now = new Date();
+      h = now.getHours() % 12;
+      m = now.getMinutes();
+      s = now.getSeconds();
+    }
+
+    var weeks = new Array("sun", "mon", "tue", "wed", "thu", "fri", "sat");
+    var y = now.getFullyear();
+    // (() => {
+    //   const addDiv = (parentDiv, className, callBack = null) => {
+    //     const t = document.createElement("div");
+    //     t.classList.add(className);
+    //     if (callBack && typeof callBack === "function") callBack(t);
+    //     parentDiv.appendChild(t);
+    //     return t;
+    //   };
+
+    //   const createFace = () => {
+    //     const analog = document.getElementsById("analogtimer");
+    //     let vp = [analog.clientWidth, analog.clientHeight];
+    //     let rad = Math.min(...vp);
+
+    //     const analogFace = addDiv(analog, "analog-face", (t) => {
+    //       [t.style.height, t.style.width] = [rad + "px", rad + "px"];
+    //       [t.style.top, t.style.left] = [
+    //         (vp[1] - rad) / 2 + "px",
+    //         (vp[0] - rad) / 2 + "px"
+    //       ];
+    //     });
+    //   };
+
+    //   window.addEventListener("DOMContentLoaded", () => {
+    //     createFace();
+    //   });
+    // })();
     // setInterval(() => {
     //   const now = new Date();
     //   const h = now.getHours();
@@ -147,20 +201,21 @@ export default {
     //   elementS.style.transform = `rotate(${degS}deg)`;
     // }, 10);
 
-    const hour = document.querySelector(".hour.meter");
-    const min = document.querySelector(".min.meter");
-    const sec = document.querySelector(".sec.meter");
+    // const sec = document.querySelector(".sec.meter");
+    // const min = document.querySelector(".min.meter");
+    // const hour = document.querySelector(".hour.meter");
 
-    setInterval(() => {
-      const date = new Date();
-      const s = (360 / 60) * date.getSeconds();
-      const m = (360 / 60) * date.getMinutes() + s / 60;
-      const h = (360 / 24) * date.getHours() + m / 24;
+    // setInterval(() => {
+    //   const date = new Date();
+    //   // console.log(date)
+    //   const s = (360 / 60) * date.getSeconds();
+    //   const m = (360 / 60) * date.getMinutes() + s / 60;
+    //   const h = (360 / 24) * date.getHours() + m / 24;
 
-      sec.style.transform = `rotate(${s}deg)`;
-      min.style.transform = `rotate(${m}deg)`;
-      hour.style.transform = `rotate(${h}deg)`;
-    }, 1000);
+    //   sec.style.transform = `rotate(${s}deg)`;
+    //   min.style.transform = `rotate(${m}deg)`;
+    //   hour.style.transform = `rotate(${h}deg)`;
+    // }, 1000);
 
     // var week = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
     // var timerID = setInterval(updateTime, 1000);
@@ -281,6 +336,24 @@ export default {
   margin: 2px;
 }
 
+#analogtimer {
+  height: 400px;
+  width: 100%;
+  position: relative;
+  background-color: tan;
+}
+
+#analogtimer .analog-face {
+  position: absolute;
+  border-radius: 50%;
+  border: 3px solid black;
+  background-color: floralwhite;
+}
+
+#analogtimer div {
+  box-sizing: border-box;
+}
+
 /* .clock {
   position: relative;
   width: 400px;
@@ -351,7 +424,7 @@ export default {
   font-size: 18px;
 } */
 
-.analog {
+/* .analog {
   position: relative;
   width: 400px;
   height: 400px;
@@ -368,33 +441,33 @@ export default {
   width: 10px;
   height: 10px;
   background-color: royalblue;
-}
+} */
 
-.analogdial {
+/* .analogdial {
   position: relative;
   width: 100%;
   height: 100%;
-  /* background: seagreen; */
-}
+  background: seagreen;
+} */
 
-.analogdial > div {
-  /* background-color: tomato; */
+/* .analogdial > div {
+  background-color: tomato;
   position: absolute;
   top: 0;
   left: calc(50% - 3px);
   width: 5px;
   height: 50%;
   transform-origin: bottom;
-}
-.analogdial > div::after {
+} */
+/* .analogdial > div::after {
   position: absolute;
   top: 0;
   content: "";
   width: 5px;
   height: 15px;
   background-color: tomato;
-}
-.analogdial div:nth-child(1) {
+} */
+/* .analogdial div:nth-child(1) {
   transform: rotate(30deg);
 }
 .analogdial div:nth-child(2) {
@@ -429,9 +502,9 @@ export default {
 }
 .analogdial div:nth-child(12) {
   transform: rotate(360deg);
-}
+} */
 
-.meter {
+/* .meter {
   background-color: plum;
   position: absolute;
   bottom: 50%;
@@ -449,7 +522,7 @@ export default {
 .sec.meter {
   width: 2px;
   height: 170px;
-}
+} */
 /* .p {
   margin: 0;
   padding: 0;
