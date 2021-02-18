@@ -73,7 +73,7 @@
         <span class="clock__6">6</span>
         <span class="clock__9">9</span>
       </div> -->
-      <div class="analog">
+      <section class="analog">
         <div class="analogdial">
           <div></div>
           <div></div>
@@ -91,7 +91,7 @@
         <div class="hour meter"></div>
         <div class="min meter"></div>
         <div class="sec meter"></div>
-      </div>
+      </section>
     </div>
   </section>
 </template>
@@ -261,20 +261,38 @@ export default {
     //   elementS.style.transform = `rotate(${degS}deg)`;
     // }, 10);
 
-    const sec = document.querySelector(".sec.meter");
-    const min = document.querySelector(".min.meter");
-    const hour = document.querySelector(".hour.meter");
+    // const sec = document.querySelector(".sec.meter");
+    // const min = document.querySelector(".min.meter");
+    // const hour = document.querySelector(".hour.meter");
 
     setInterval(() => {
-      const date = new Date();
+      // const date = new Date();
       // console.log(date)
-      const s = (360 / 60) * date.getSeconds();
-      const m = (360 / 60) * date.getMinutes() + s / 60;
-      const h = (360 / 24) * date.getHours() + m / 24;
+      // const s = (360 / 60) * date.getSeconds();
+      // const m = (360 / 60) * date.getMinutes() + s / 60;
+      // const h = (360 / 24) * date.getHours() + m / 24;
+      // sec.style.transform = `rotate(${s}deg)`;
+      // min.style.transform = `rotate(${m}deg)`;
+      // hour.style.transform = `rotate(${h}deg)`;
 
-      sec.style.transform = `rotate(${s}deg)`;
-      min.style.transform = `rotate(${m}deg)`;
-      hour.style.transform = `rotate(${h}deg)`;
+      const now = new Date();
+      const h = now.getHours();
+      const m = now.getMinutes();
+      const s = now.getSeconds();
+
+      const degH = h * (360 / 12) + m * (360 / 12 / 60);
+      const degM = m * (360 / 60);
+      const degS = s * (360 / 60);
+
+      const elementH = document.querySelector(".hour.meter");
+      const elementM = document.querySelector(".min.meter");
+      const elementS = document.querySelector(".sec.meter");
+
+      elementH.style.transform = `rotate(${degH}deg)`;
+      elementM.style.transform = `rotate(${degM}deg)`;
+      elementS.style.transform = `rotate(${degS}deg)`;
+
+      
     }, 1000);
 
     // var week = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
@@ -523,7 +541,7 @@ span #clock_time {
 }
 
 .analogdial > div {
-  background-color: tomato;
+  /* background-color: tomato; */
   position: absolute;
   top: 0;
   left: calc(50% - 3px);
@@ -595,6 +613,7 @@ span #clock_time {
   width: 2px;
   height: 170px;
 }
+
 /* .p {
   margin: 0;
   padding: 0;
