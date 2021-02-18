@@ -58,11 +58,11 @@
           <a> click: {{ $store.state.counter }} </a>
         </div>
       </div>
-      <canvas id="canvas" width="300" height="300"></canvas>
+      <!-- <canvas id="canvas" width="300" height="300"></canvas>
       <div id="frame">
         <span id="frame_date"></span>
         <span id="frame_time"></span>
-      </div>
+      </div> -->
       <!-- <div id="analogtimer"></div> -->
       <!-- <div class="clock">
         <span class="clock__hour"></span>
@@ -73,7 +73,7 @@
         <span class="clock__6">6</span>
         <span class="clock__9">9</span>
       </div> -->
-      <!-- <div class="analog">
+      <div class="analog">
         <div class="analogdial">
           <div></div>
           <div></div>
@@ -91,18 +91,12 @@
         <div class="hour meter"></div>
         <div class="min meter"></div>
         <div class="sec meter"></div>
-      </div> -->
+      </div>
     </div>
-    <!-- <div id="degital">
-      <p class="date">{{ date }}</p>
-      <p class="time">{{ time }}</p> 
-      <p class="text">Degital</p>
-    </div> -->
   </section>
 </template>
 <script>
 import Task from "@/components/atoms/Task.vue";
-import func from '../../vue-temp/vue-editor-bridge';
 // import { mapMutations, } from 'vuex'
 
 export default {
@@ -135,26 +129,92 @@ export default {
   },
 
   mounted() {
-    var ctx, h, m, s, width, height;
+    // 2021 0219
+    // var ctx, h, m, s, width, height;
 
-    function getOjg(id) {
-      return document.getElementsById(id);
-    }
+    // function getOjg(id) {
+    //   return document.getElementById(id);
+    // }
 
-    function clock () {
-      ctx = getOjg("canvas").getContext("2d");
-      setInterval(tick, 1000);
-    }
+    // function clock() {
+    //   ctx = getOjg("canvas").getContext("2d");
+    //   setInterval(tick, 1000);
+    // }
 
-    function tick() {
-      var now = new Date();
-      h = now.getHours() % 12;
-      m = now.getMinutes();
-      s = now.getSeconds();
-    }
+    // function tick() {
+    //   var now = new Date();
+    //   h = now.getHours() % 12;
+    //   m = now.getMinutes();
+    //   s = now.getSeconds();
 
-    var weeks = new Array("sun", "mon", "tue", "wed", "thu", "fri", "sat");
-    var y = now.getFullyear();
+    //   // var weeks = new Array("sun", "mon", "tue", "wed", "thu", "fri", "sat");
+    //   // var y = now.getFullyear();
+    //   // var mo = now.getMonth() + 1;
+    //   // var d = now.getDate();
+    //   // var w = weeks[now.getDay()];
+
+    //   // if (mo < 10) mo = "0" + mo;
+    //   // if (d < 10) d = "0" + d;
+
+    //   // getOjg("clock_date").textContent =
+    //   //   y + "/" + mo + "/" + d + " (" + w + ")";
+    //   getOjg("clock_time").textContent = now.toLocaleTimeString();
+    //   paint();
+    // }
+
+    // sec
+    // function drawHand(rotation, length, width, color) {
+    //   ctx.save();
+    //   ctx.lineWidth = width;
+    //   ctx.strokeStyle = color;
+    //   ctx.rotate(rotation);
+    //   ctx.beginPath();
+    //   ctx.moveTo(0, 0);
+    //   ctx.lineTo(0, -length);
+    //   ctx.stroke();
+    //   ctx.restore();
+    // }
+
+    // circle
+    // function paint() {
+    //   width = canvas.width;
+    //   height = canvas.height;
+    //   ctx.clearRect(0, 0, width, height);
+
+    //   ctx.save();
+    //   ctx.arc(150, 150, 140, 0, 2 * Math.PI);
+    //   ctx.stroke();
+
+    //   // frame
+    //   ctx.beginPath();
+    //   ctx.arc(150, 150, 140, 0, 2 * Math.PI);
+    //   ctx.stroke();
+
+    //   // 目盛
+    //   ctx.translate(150, 150);
+    //   var pitch = Math.PI * 2 /60;
+    //   for (var i = 0; i < 60; i++) {
+    //     ctx.beginPath();
+    //     ctx.lineWidth = (i % 5) == 0 ? 3 : 1;
+    //     ctx.moveTo(0, -120);
+    //     ctx.lineTo(0, -130);
+    //     ctx.stroke();
+    //     ctx.rotate(pitch);
+    //   }
+
+    //   var radH = (Math.PI * 2) / 12 * h + (Math.PI * 2) / 12 * (m / 60);
+    //   var radM = (Math.PI * 2) / 60 * m;
+    //   var radS = (Math.PI * 2) / 60 * s;
+
+    //   drawHand(radH, 80, 4, "black");
+    //   drawHand(radM, 130, 4, "black");
+    //   drawHand(radS, 130, 2, "red");
+
+    //   ctx.restore();
+    // }
+    // clock();
+
+    // 2021 0218
     // (() => {
     //   const addDiv = (parentDiv, className, callBack = null) => {
     //     const t = document.createElement("div");
@@ -201,21 +261,21 @@ export default {
     //   elementS.style.transform = `rotate(${degS}deg)`;
     // }, 10);
 
-    // const sec = document.querySelector(".sec.meter");
-    // const min = document.querySelector(".min.meter");
-    // const hour = document.querySelector(".hour.meter");
+    const sec = document.querySelector(".sec.meter");
+    const min = document.querySelector(".min.meter");
+    const hour = document.querySelector(".hour.meter");
 
-    // setInterval(() => {
-    //   const date = new Date();
-    //   // console.log(date)
-    //   const s = (360 / 60) * date.getSeconds();
-    //   const m = (360 / 60) * date.getMinutes() + s / 60;
-    //   const h = (360 / 24) * date.getHours() + m / 24;
+    setInterval(() => {
+      const date = new Date();
+      // console.log(date)
+      const s = (360 / 60) * date.getSeconds();
+      const m = (360 / 60) * date.getMinutes() + s / 60;
+      const h = (360 / 24) * date.getHours() + m / 24;
 
-    //   sec.style.transform = `rotate(${s}deg)`;
-    //   min.style.transform = `rotate(${m}deg)`;
-    //   hour.style.transform = `rotate(${h}deg)`;
-    // }, 1000);
+      sec.style.transform = `rotate(${s}deg)`;
+      min.style.transform = `rotate(${m}deg)`;
+      hour.style.transform = `rotate(${h}deg)`;
+    }, 1000);
 
     // var week = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
     // var timerID = setInterval(updateTime, 1000);
@@ -336,7 +396,19 @@ export default {
   margin: 2px;
 }
 
-#analogtimer {
+/* span {
+  text-align: left;
+  padding: 0px, 5px, 0px 5px;
+  float: left;
+}
+
+span #clock_date {
+  font-size: 20px;
+}
+span #clock_time {
+  font-size: 20px;
+} */
+/* #analogtimer {
   height: 400px;
   width: 100%;
   position: relative;
@@ -352,7 +424,7 @@ export default {
 
 #analogtimer div {
   box-sizing: border-box;
-}
+} */
 
 /* .clock {
   position: relative;
@@ -424,7 +496,7 @@ export default {
   font-size: 18px;
 } */
 
-/* .analog {
+.analog {
   position: relative;
   width: 400px;
   height: 400px;
@@ -441,16 +513,16 @@ export default {
   width: 10px;
   height: 10px;
   background-color: royalblue;
-} */
+}
 
-/* .analogdial {
+.analogdial {
   position: relative;
   width: 100%;
   height: 100%;
-  background: seagreen;
-} */
+  /* background: seagreen; */
+}
 
-/* .analogdial > div {
+.analogdial > div {
   background-color: tomato;
   position: absolute;
   top: 0;
@@ -458,16 +530,16 @@ export default {
   width: 5px;
   height: 50%;
   transform-origin: bottom;
-} */
-/* .analogdial > div::after {
+}
+.analogdial > div::after {
   position: absolute;
   top: 0;
   content: "";
   width: 5px;
   height: 15px;
   background-color: tomato;
-} */
-/* .analogdial div:nth-child(1) {
+}
+.analogdial div:nth-child(1) {
   transform: rotate(30deg);
 }
 .analogdial div:nth-child(2) {
@@ -502,9 +574,9 @@ export default {
 }
 .analogdial div:nth-child(12) {
   transform: rotate(360deg);
-} */
+}
 
-/* .meter {
+.meter {
   background-color: plum;
   position: absolute;
   bottom: 50%;
@@ -522,7 +594,7 @@ export default {
 .sec.meter {
   width: 2px;
   height: 170px;
-} */
+}
 /* .p {
   margin: 0;
   padding: 0;
